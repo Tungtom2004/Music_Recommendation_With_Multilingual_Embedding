@@ -7,6 +7,7 @@ from sklearn.metrics.pairwise import cosine_similarity
 from dotenv import load_dotenv 
 from openai import AzureOpenAI
 import os 
+from huggingface_hub import hf_hub_download 
 
 load_dotenv()
 
@@ -14,7 +15,13 @@ load_dotenv()
 def load_data_and_embeddings():
     data = pd.read_csv("dataset/dataset_cleaned.csv")
     data = data.reset_index(drop=True)
-    embeddings = np.load("dataset/embeddings_hybrid.npy")
+
+    emb_path = hf_hub_download(
+        repo_id = "Tungtom2004/dataset",
+        file_name = "embeddings_hybrid.npy",
+        repo_type="dataset",
+    )
+    embeddings = np.load(emb_path)
     return data, embeddings
 
 
