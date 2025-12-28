@@ -21,7 +21,7 @@ def load_data_and_embeddings():
         file_name = "embeddings_hybrid.npy",
         repo_type="dataset",
     )
-    embeddings = np.load(emb_path)
+    embeddings = np.load(emb_path, mmap_mode="r").astype("float16")
     return data, embeddings
 
 
